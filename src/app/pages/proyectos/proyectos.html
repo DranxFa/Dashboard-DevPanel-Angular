@@ -1,0 +1,70 @@
+<div>
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Proyectos</h2>
+  </div>
+
+  <!-- Filtros -->
+  <div class="flex gap-2 mb-6">
+    @for (filtro of filtros; track filtro) {
+      <button
+        (click)="filtrar(filtro)"
+        [class]="filtroActivo() === filtro 
+          ? 'px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium'
+          : 'px-4 py-2 rounded-lg bg-white text-gray-600 text-sm font-medium border border-gray-200 hover:bg-gray-50'"
+      >
+        {{ filtro | titlecase }}
+      </button>
+    }
+  </div>
+
+  <!-- Lista de proyectos -->
+  <div class="grid grid-cols-2 gap-6">
+    @for (proyecto of proyectosFiltrados(); track proyecto.id) {
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        
+        <div class="flex justify-between items-start mb-3">
+          <h3 class="font-semibold text-gray-800">{{ proyecto.nombre }}</h3>
+          <span [class]="'text-xs px-2 py-1 rounded-full font-medium ' + colorEstado(proyecto.estado)">
+            {{ proyecto.estado | titlecase }}
+          </span>
+        </div>
+
+        <p class="text-sm text-gray-500 mb-4">{{ proyecto.descripcion }}</p>
+
+        <!-- Tecnologias -->
+        <div class="flex gap-2 flex-wrap mb-4">
+          @for (tech of proyecto.tecnologias; track tech) {
+            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+              {{ tech }}
+            </span>
+          }
+        </div>
+
+        <!-- Progreso -->
+        <div class="mb-4">
+          <div class="flex justify-between text-sm text-gray-500 mb-1">
+            <span>Progreso</span>
+            <span>{{ proyecto.progreso }}%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div 
+              class="bg-blue-600 h-2 rounded-full transition-all"
+              [style.width.%]="proyecto.progreso">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-500">👥 {{ proyecto.miembros }} miembros</span>
+          <a 
+            [routerLink]="['/proyectos', proyecto.id]"
+            class="text-sm text-blue-600 hover:underline font-medium">
+            Ver detalle →
+          </a>
+        </div>
+
+      </div>
+    }
+  </div>
+
+</div>

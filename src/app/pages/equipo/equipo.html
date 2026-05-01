@@ -1,0 +1,46 @@
+<div>
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Equipo</h2>
+      <p class="text-gray-500 text-sm mt-1">
+        {{ miembrosActivos() }} activos de {{ totalMiembros() }} miembros
+      </p>
+    </div>
+    <a 
+      routerLink="/equipo/nuevo"
+      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+      + Agregar miembro
+    </a>
+  </div>
+
+  <div class="grid grid-cols-2 gap-6">
+    @for (miembro of miembros(); track miembro.id) {
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex items-center gap-4">
+        
+        <!-- Avatar -->
+        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
+          {{ miembro.avatar }}
+        </div>
+
+        <!-- Info -->
+        <div class="flex-1">
+          <p class="font-semibold text-gray-800">{{ miembro.nombre }}</p>
+          <p class="text-sm text-gray-500">{{ miembro.rol }}</p>
+          <p class="text-xs text-gray-400">{{ miembro.email }}</p>
+        </div>
+
+        <!-- Estado -->
+        <div class="text-right">
+          <span [class]="miembro.activo 
+            ? 'text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium'
+            : 'text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full font-medium'">
+            {{ miembro.activo ? 'Activo' : 'Inactivo' }}
+          </span>
+          <p class="text-xs text-gray-400 mt-2">{{ miembro.proyectos }} proyectos</p>
+        </div>
+
+      </div>
+    }
+  </div>
+
+</div>

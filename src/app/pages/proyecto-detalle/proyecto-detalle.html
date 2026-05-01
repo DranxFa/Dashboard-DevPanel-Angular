@@ -1,0 +1,78 @@
+<div>
+  <a routerLink="/proyectos" class="text-blue-600 hover:underline text-sm">
+    ← Volver a proyectos
+  </a>
+
+  @if (proyecto()) {
+    <div class="mt-6">
+
+      <!-- Header -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">{{ proyecto()!.nombre }}</h2>
+            <p class="text-gray-500 mt-2">{{ proyecto()!.descripcion }}</p>
+          </div>
+          <span [class]="'text-sm px-3 py-1 rounded-full font-medium ' + colorEstado(proyecto()!.estado)">
+            {{ proyecto()!.estado | titlecase }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Detalles -->
+      <div class="grid grid-cols-2 gap-6">
+
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-semibold text-gray-800 mb-4">Información</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between">
+              <span class="text-gray-500">Fecha inicio</span>
+              <span class="font-medium">{{ proyecto()!.fechaInicio | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Miembros</span>
+              <span class="font-medium">{{ proyecto()!.miembros }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Progreso</span>
+              <span class="font-medium">{{ proyecto()!.progreso }}%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-semibold text-gray-800 mb-4">Tecnologías</h3>
+          <div class="flex flex-wrap gap-2">
+            @for (tech of proyecto()!.tecnologias; track tech) {
+              <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg text-sm font-medium">
+                {{ tech }}
+              </span>
+            }
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra de progreso grande -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
+        <h3 class="font-semibold text-gray-800 mb-4">Progreso del proyecto</h3>
+        <div class="w-full bg-gray-200 rounded-full h-4">
+          <div 
+            class="bg-blue-600 h-4 rounded-full transition-all"
+            [style.width.%]="proyecto()!.progreso">
+          </div>
+        </div>
+        <p class="text-right text-sm text-gray-500 mt-2">{{ proyecto()!.progreso }}% completado</p>
+      </div>
+
+    </div>
+  } @else {
+    <div class="mt-6 bg-white rounded-xl p-12 text-center shadow-sm border border-gray-100">
+      <p class="text-gray-500">Proyecto no encontrado.</p>
+      <a routerLink="/proyectos" class="text-blue-600 hover:underline mt-2 inline-block">
+        Ver todos los proyectos
+      </a>
+    </div>
+  }
+
+</div>

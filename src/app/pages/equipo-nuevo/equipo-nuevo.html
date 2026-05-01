@@ -1,0 +1,104 @@
+<div class="max-w-2xl">
+  <div class="flex items-center gap-4 mb-6">
+    <a routerLink="/equipo" class="text-blue-600 hover:underline text-sm">← Volver</a>
+    <h2 class="text-2xl font-bold text-gray-800">Nuevo Miembro</h2>
+  </div>
+
+  <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+    <form [formGroup]="formulario" (ngSubmit)="guardar()">
+      
+      <!-- Nombre -->
+      <div class="mb-5">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Nombre completo
+        </label>
+        <input 
+          formControlName="nombre"
+          type="text"
+          placeholder="Ej: Ana García"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class.border-red-400]="nombre?.invalid && nombre?.touched"
+        >
+        @if (nombre?.invalid && nombre?.touched) {
+          @if (nombre?.errors?.['required']) {
+            <p class="text-red-500 text-xs mt-1">El nombre es obligatorio.</p>
+          }
+          @if (nombre?.errors?.['minlength']) {
+            <p class="text-red-500 text-xs mt-1">Mínimo 3 caracteres.</p>
+          }
+        }
+      </div>
+
+      <!-- Rol -->
+      <div class="mb-5">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Rol</label>
+        <select
+          formControlName="rol"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class.border-red-400]="rol?.invalid && rol?.touched"
+        >
+          <option value="">Selecciona un rol</option>
+          <option>Frontend Developer</option>
+          <option>Backend Developer</option>
+          <option>UI/UX Designer</option>
+          <option>DevOps Engineer</option>
+          <option>Project Manager</option>
+        </select>
+        @if (rol?.invalid && rol?.touched) {
+          <p class="text-red-500 text-xs mt-1">El rol es obligatorio.</p>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="mb-5">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          placeholder="ana@devpanel.com"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class.border-red-400]="email?.invalid && email?.touched"
+        >
+        @if (email?.invalid && email?.touched) {
+          @if (email?.errors?.['required']) {
+            <p class="text-red-500 text-xs mt-1">El email es obligatorio.</p>
+          }
+          @if (email?.errors?.['email']) {
+            <p class="text-red-500 text-xs mt-1">Ingresa un email válido.</p>
+          }
+        }
+      </div>
+
+      <!-- Proyectos -->
+      <div class="mb-8">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Proyectos asignados
+        </label>
+        <input
+          formControlName="proyectos"
+          type="number"
+          min="0"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+      </div>
+
+      <!-- Botones -->
+      <div class="flex gap-3">
+        <button
+          type="submit"
+          [disabled]="formulario.invalid"
+          class="flex-1 bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Guardar Miembro
+        </button>
+        <a 
+          routerLink="/equipo"
+          class="flex-1 text-center border border-gray-200 text-gray-600 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+        >
+          Cancelar
+        </a>
+      </div>
+
+    </form>
+  </div>
+</div>

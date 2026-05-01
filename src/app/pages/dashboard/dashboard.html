@@ -1,0 +1,49 @@
+<div>
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Dashboard</h2>
+
+  <!-- Métricas -->
+  <div class="grid grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <p class="text-sm text-gray-500">Total Proyectos</p>
+      <p class="text-3xl font-bold text-gray-800 mt-1">{{ totalProyectos() }}</p>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <p class="text-sm text-gray-500">Proyectos Activos</p>
+      <p class="text-3xl font-bold text-blue-600 mt-1">{{ proyectosActivos() }}</p>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <p class="text-sm text-gray-500">Progreso Promedio</p>
+      <p class="text-3xl font-bold text-green-600 mt-1">{{ progresoPromedio() }}%</p>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <p class="text-sm text-gray-500">Miembros Activos</p>
+      <p class="text-3xl font-bold text-purple-600 mt-1">{{ miembrosActivos() }}/{{ totalMiembros() }}</p>
+    </div>
+  </div>
+
+  <!-- Proyectos recientes -->
+  <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Proyectos Recientes</h3>
+    <div class="space-y-4">
+      @for (proyecto of proyectosRecientes(); track proyecto.id) {
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+          <div>
+            <p class="font-medium text-gray-800">{{ proyecto.nombre }}</p>
+            <p class="text-sm text-gray-500">{{ proyecto.miembros }} miembros</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <!-- Barra de progreso -->
+            <div class="w-32 bg-gray-200 rounded-full h-2">
+              <div 
+                class="bg-blue-600 h-2 rounded-full"
+                [style.width.%]="proyecto.progreso">
+              </div>
+            </div>
+            <span class="text-sm font-medium text-gray-600">{{ proyecto.progreso }}%</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+</div>
