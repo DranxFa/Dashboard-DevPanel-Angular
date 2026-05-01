@@ -14,3 +14,6 @@ cd devpanel
 npm install
 ng serve
 ```
+
+## Demo
+https://dashboard-dev-panel-angular.vercel.app
